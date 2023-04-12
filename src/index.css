@@ -17,19 +17,20 @@ code {
 .route-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.route-info__item {
-  display: flex;
-  align-items: center;
 }
 
 .route-info__vehicle {
+  display: flex;
+  align-items: center;
   font-size: 24px;
   margin: 0 1rem;
 }
 
+.route-info__vehicle span {
+  margin-left: 8px;
+}
+
+.route-info__arrow {
+  font-size: 24px;
+  margin: 0 1rem;
+}

@@ -46,8 +46,8 @@ function Topic() {
   const topic = mockTopics.find((topic) => topic.id === parseInt(id, 10));
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [start, setStart] = useState({ lat: 40.7128, lng: -74.0060 });
-  const [end, setEnd] = useState({ lat: 40.7306, lng: -73.9352 });
+  const [start, setStart] = useState("บ้านกูเอง");
+  const [end, setEnd] = useState("โชว์ปิงปอง");
   if (!topic) {
     return <div>Topic not found</div>;
   }
