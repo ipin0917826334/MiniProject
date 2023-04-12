@@ -8,9 +8,9 @@ import NewTopic from "./components/NewTopic";
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="App flex flex-col min-h-screen">
         <Header />
-        <main className="container mx-auto">
+        <main className="container mx-auto flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/topic/:id" element={<Topic />} />
