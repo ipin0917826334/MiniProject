@@ -2,21 +2,30 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addNewTopic } from "../mockData";
 
-function NewTopic({ topics, setTopics }) {
+function NewTopic({ topics, setTopics, userData }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
+  const [name, setName] = useState(userData.name);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newTopic = { title, description ,likes, dislikes,posts:[]};
-    setTopics([...topics, newTopic]);
-    const createdTopic = addNewTopic(newTopic);
-    navigate(`/topic/${createdTopic.id}`);
+    console.log("User Profile:", userData.name);
+    const newTopic = {
+      title,
+      description,
+      likes,
+      dislikes,
+      posts: [],
+      name,
+    };
+    const addedTopic = addNewTopic(newTopic);
+    setTopics((prevTopics) => [...prevTopics, addedTopic]);
+    navigate(`/topic/${addedTopic.id}`);
   }
-
+  
   return (
     <div className="new-topic p-4">
       <h2 className="text-xl mb-4">Create New Topic</h2>

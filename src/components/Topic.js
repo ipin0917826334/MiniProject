@@ -41,13 +41,15 @@ import RouteInfo from './RouteInfo';
 
 Modal.setAppElement("#root");
     
-function Topic() {
+function Topic({ userData }) {
   const { id } = useParams();
-  const topic = mockTopics.find((topic) => topic.id === parseInt(id, 10));
+  const topic = mockTopics.find((topic) => topic.id.toString() === id);
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [start, setStart] = useState("บ้านกูเอง");
   const [end, setEnd] = useState("โชว์ปิงปอง");
+  const [name, setName] = useState(userData.name);
+  const [imgProfile, setimgProfile] = useState(userData.imageUrl);
   if (!topic) {
     return <div>Topic not found</div>;
   }
@@ -57,7 +59,9 @@ function Topic() {
       title: "New Comment",
       content: comment,
       likes: 0,
-      dislikes: 0
+      dislikes: 0,
+      author: name,
+      imgProfile: imgProfile
     };
     topic.posts.push(newPost);
     setComment("");
@@ -66,7 +70,7 @@ function Topic() {
   return (
     <div className="topic p-4">
         <RouteInfo start={start} end={end} />
-      <h1 className="text-2xl font-bold mb-4">{topic.title}</h1>
+      <h1 className="text-2xl font-bold mb-4">{topic.title} By {topic.name}</h1>
       <p className="text-gray-700 mb-4">{topic.description}</p>
 
       <button

@@ -41,13 +41,12 @@ import useVote from "../hooks/useVote";
 
 function TopicCard({ topic }) {
   const { likes, dislikes, handleLike, handleDislike } = useVote(topic.likes, topic.dislikes);
-
+  console.log("TopicCard:", topic);
   return (
     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
-    <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:text-blue-700">
+      <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:text-blue-700">
         <h2 className="text-xl font-bold">
           {topic.title}{' '}
-          <span className="text-gray-600">({topic.commentCount} comments)</span>
         </h2>
       </Link>
       <p className="text-gray-700">{topic.description}</p>
@@ -67,12 +66,15 @@ function TopicCard({ topic }) {
           Dislike ({dislikes})
         </button>
       </div>
+      <div className="flex justify-end">
+        <span className="text-gray-600">Created by {topic.name}</span>
+      </div>
     </div>
   );
 }
 
-function Home({ topics, userProfile }) {
-  console.log("User Profile:", userProfile);
+function Home({ topics, userProfile, userData }) {
+  //  console.log("User Profile:", userData);
   const [search, setSearch] = useState("");
 
   function handleSearch(e) {
@@ -82,7 +84,7 @@ function Home({ topics, userProfile }) {
   const filteredTopics = topics.filter((topic) =>
     (topic.title + " " + topic.description).toLowerCase().includes(search.toLowerCase())
   );
-
+  console.log(filteredTopics)
   return (
     <div className="home p-4">
       <div className="flex justify-between mb-4">
@@ -98,9 +100,10 @@ function Home({ topics, userProfile }) {
         value={search}
         onChange={handleSearch}
       />
-       {filteredTopics.map((topic) => (
-        <TopicCard key={topic.id} topic={topic} />
-      ))}
+      {filteredTopics.map((topic) => {
+        console.log("Rendering topic:", topic);
+        return <TopicCard key={topic.id} topic={topic} />;
+      })}
     </div>
   );
 }

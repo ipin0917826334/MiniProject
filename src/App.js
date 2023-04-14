@@ -11,6 +11,7 @@ function App() {
   const [topics, setTopics] = useState(mockTopics);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
+  const userData = JSON.parse(localStorage.getItem('userData'));
   const onLoginSuccess = (response) => {
     setIsLoggedIn(true);
     setUserProfile(response.profileObj);
@@ -24,27 +25,27 @@ function App() {
   return (
     <Router>
       <div className="App flex flex-col min-h-screen">
-      <Header
+        <Header
           isLoggedIn={isLoggedIn}
           userProfile={userProfile}
           onLoginSuccess={onLoginSuccess}
           onLogoutSuccess={onLogoutSuccess}
         />
         <main className="container mx-auto flex-grow">
-  <Routes>
-    <Route
-      exact
-      path="/"
-      element={<Home topics={topics} userProfile={userProfile} />}
-    />
-    <Route
-      exact
-      path="/new-topic"
-      element={<NewTopic topics={topics} setTopics={setTopics} />}
-    />
-    <Route path="/topic/:id" element={<Topic />} />
-  </Routes>
-</main>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={<Home topics={topics} userProfile={userProfile} userData={userData} />}
+            />
+            <Route
+              exact
+              path="/new-topic"
+              element={<NewTopic topics={topics} setTopics={setTopics} userData={userData} />}
+            />
+            <Route path="/topic/:id" element={<Topic userData={userData} />} />
+          </Routes>
+        </main>
         <Footer />
       </div>
     </Router>

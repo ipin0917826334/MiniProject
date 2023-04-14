@@ -12,6 +12,7 @@ export const mockTopics = [
           content: "I prefer React because it's more flexible and has a larger community.",
           likes: 3,
           dislikes: 1,
+          imgProfile: "https://thethaiger.com/th/wp-content/uploads/2021/05/42543884_2162764687331843_6703748344742674432_n-1.jpg"
         },
         {
             id: "2",
@@ -19,13 +20,17 @@ export const mockTopics = [
             content: "ไอสัส",
             likes: 56,
             dislikes: 2,
+            imgProfile: "https://image.bangkokbiznews.com/uploads/images/contents/w1024/2022/04/rYXZmTI2AnqH7xTPvndM.webp"
         },
       ],
+      name: "พี่บ่าว"
     },
   ];
   export function addNewTopic(topic) {
     const newId = Math.max(...mockTopics.map((t) => t.id)) + 1;
-    const newTopic = { ...topic, id: newId, posts: [] };
+    const newTopic = { ...topic, id: newId, posts: [], likes: 0, dislikes: 0 };
     mockTopics.push(newTopic);
+    console.log(newTopic);
     return newTopic;
   }
+  
