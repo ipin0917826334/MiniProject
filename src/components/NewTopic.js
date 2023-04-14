@@ -21,8 +21,7 @@ function NewTopic({ topics, setTopics, userData }) {
       posts: [],
       name,
     };
-    const addedTopic = addNewTopic(newTopic);
-    setTopics((prevTopics) => [...prevTopics, addedTopic]);
+    const addedTopic = setTopics(newTopic);
     navigate(`/topic/${addedTopic.id}`);
   }
   

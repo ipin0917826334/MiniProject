@@ -28,7 +28,7 @@ export const mockTopics = [
   ];
   export function addNewTopic(topic) {
     const newId = Math.max(...mockTopics.map((t) => t.id)) + 1;
-    const newTopic = { ...topic, id: newId, posts: [], likes: 0, dislikes: 0 };
+    const newTopic = { ...topic, id: newId, posts: [] };
     mockTopics.push(newTopic);
     console.log(newTopic);
     return newTopic;

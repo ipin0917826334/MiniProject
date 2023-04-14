@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Topic from "./components/Topic";
 import NewTopic from "./components/NewTopic";
 import { useState } from "react";
-import { mockTopics } from "./mockData";
+import { mockTopics, addNewTopic } from "./mockData";
 
 function App() {
   const [topics, setTopics] = useState(mockTopics);
@@ -41,7 +41,7 @@ function App() {
             <Route
               exact
               path="/new-topic"
-              element={<NewTopic topics={topics} setTopics={setTopics} userData={userData} />}
+              element={<NewTopic topics={topics} setTopics={addNewTopic} userData={userData} />}
             />
             <Route path="/topic/:id" element={<Topic userData={userData} />} />
           </Routes>
