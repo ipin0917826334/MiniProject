@@ -1,16 +1,45 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { gapi } from 'gapi-script';
+import { AuthContext } from "../context/AuthContext";
 
-function Header({ isLoggedIn, userProfile, onLoginSuccess, onLogoutSuccess }) {
+function Header() {
+  const { userData, setUserData, isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   gapi.load("client:auth2", () => {
     gapi.client.init({
-      clientId:
-        "283004803380-rt4f3dl76mtevsgejd9k74factjkbuv1.apps.googleusercontent.com",
+      clientId: "283004803380-rt4f3dl76mtevsgejd9k74factjkbuv1.apps.googleusercontent.com",
       ux_mode: 'redirect'
     });
   });
+
+  const responseGoogle = (response) => {
+    const userData = {
+      id: response.googleId,
+      name: response.profileObj.name,
+      email: response.profileObj.email,
+      imageUrl: response.profileObj.imageUrl,
+    };
+
+    setUserData(userData);
+    setIsAuthenticated(true);
+
+    // Store user data in localStorage
+    localStorage.setItem("userData", JSON.stringify(userData));
+    window.location.reload(false);
+  };
+
+  const logout = () => {
+    setUserData(null);
+    setIsAuthenticated(false);
+
+    // Remove user data from localStorage
+    localStorage.removeItem("userData");
+  };
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
   const onLoginFailure = (error) => {
     console.error("Login failed:", error);
     if (error.error === "popup_closed_by_user") {
@@ -18,6 +47,7 @@ function Header({ isLoggedIn, userProfile, onLoginSuccess, onLogoutSuccess }) {
       alert("Login was not completed. Please try again.");
     }
   };
+
   return (
     <header className="header bg-blue-500 text-white px-4 py-3 flex items-center justify-between">
       <div className="flex items-center">
@@ -28,32 +58,36 @@ function Header({ isLoggedIn, userProfile, onLoginSuccess, onLogoutSuccess }) {
           New Topic
         </NavLink>
       </div>
-      {isLoggedIn ? (
-        <GoogleLogout
-          clientId="283004803380-rt4f3dl76mtevsgejd9k74factjkbuv1.apps.googleusercontent.com"
-          buttonText="Logout"
-          onLogoutSuccess={onLogoutSuccess}
-          // onFailure={(response) => console.error("Logout failed:", response)}
-          onFailure={onLoginFailure} // Add this line
-        />
-      ) : (
+
+      {!isAuthenticated ? (
         <GoogleLogin
-          clientId="283004803380-rt4f3dl76mtevsgejd9k74factjkbuv1.apps.googleusercontent.com"
-          buttonText="Login with Google"
-          onSuccess={onLoginSuccess}
-          // onFailure={(response) => console.error("Login failed:", response)}
-          onFailure={onLoginFailure} // Add this line
+          clientId={"283004803380-rt4f3dl76mtevsgejd9k74factjkbuv1.apps.googleusercontent.com"}
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={onLoginFailure}
+          cookiePolicy={"single_host_origin"}
         />
-      )}
-      {isLoggedIn && userProfile && (
+      ) : (isAuthenticated && userData && (
         <div className="flex items-center ml-4">
           <img
-            src={userProfile.imageUrl}
+            src={userData.imageUrl}
             alt="Profile"
             className="h-10 w-10 rounded-full mr-2"
           />
-          <span>{userProfile.name}</span>
+          <div className="relative">
+            <button onClick={toggleDropdown} className="focus:outline-none">
+              {userData.name}
+            </button>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 text-black">
+                <button onClick={logout} className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
+      )
       )}
     </header>
   );
