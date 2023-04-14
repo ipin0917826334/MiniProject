@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addNewTopic } from "../mockData";
 
-function NewTopic() {
+function NewTopic({ topics, setTopics }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
@@ -11,7 +11,8 @@ function NewTopic() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newTopic = { title, description ,likes, dislikes};
+    const newTopic = { title, description ,likes, dislikes,posts:[]};
+    setTopics([...topics, newTopic]);
     const createdTopic = addNewTopic(newTopic);
     navigate(`/topic/${createdTopic.id}`);
   }

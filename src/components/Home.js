@@ -44,8 +44,11 @@ function TopicCard({ topic }) {
 
   return (
     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
-      <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:text-blue-700">
-        <h2 className="text-xl font-bold">{topic.title}</h2>
+    <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:text-blue-700">
+        <h2 className="text-xl font-bold">
+          {topic.title}{' '}
+          <span className="text-gray-600">({topic.commentCount} comments)</span>
+        </h2>
       </Link>
       <p className="text-gray-700">{topic.description}</p>
       <div className="flex items-center mt-2">
@@ -68,14 +71,15 @@ function TopicCard({ topic }) {
   );
 }
 
-function Home() {
+function Home({ topics, userProfile }) {
+  console.log("User Profile:", userProfile);
   const [search, setSearch] = useState("");
 
   function handleSearch(e) {
     setSearch(e.target.value);
   }
 
-  const filteredTopics = mockTopics.filter((topic) =>
+  const filteredTopics = topics.filter((topic) =>
     (topic.title + " " + topic.description).toLowerCase().includes(search.toLowerCase())
   );
 
