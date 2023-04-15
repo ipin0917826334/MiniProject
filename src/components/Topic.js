@@ -1,59 +1,37 @@
-// // This is a skeleton implementation of the Topic component. You'll need to modify it based on your backend API.
-// import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
-// import axios from "axios";
-
-// function Topic() {
-//   const { id } = useParams();
-//   const [topic, setTopic] = useState(null);
-
-//   useEffect(() => {
-//     async function fetchTopic() {
-//       const response = await axios.get(`https://api.example.com/topic/${id}`);
-//       setTopic(response.data);
-//     }
-
-//     fetchTopic();
-//   }, [id]);
-
-//   if (!topic) return <div>Loading...</div>;
-
-//   return (
-//     <div className="topic p-4">
-//       <h2 className="text-xl mb-4">{topic.title}</h2>
-//       {topic.posts.map((post) => (
-//         <div key={post.id} className="post bg-gray-100 p-4 my-4 rounded">
-//           <h3 className="text-lg mb-2">{post.title}</h3>
-//           <p>{post.content}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default Topic;
-import React, { useState } from "react";
+import React, { useState, useEffect  } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
-import { mockTopics } from "../mockData";
 import Comment from "./Comment";
 import RouteInfo from './RouteInfo';
-
+import api from "../services/api";
 Modal.setAppElement("#root");
     
 function Topic({ userData }) {
   const { id } = useParams();
-  const topic = mockTopics.find((topic) => topic.id.toString() === id);
+  // const topic = mockTopics.find((topic) => topic.id.toString() === id);
+  const [topic, setTopic] = useState(null);
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [start, setStart] = useState("บ้านกูเอง");
   const [end, setEnd] = useState("โชว์ปิงปอง");
   const [name, setName] = useState(userData.name);
   const [imgProfile, setimgProfile] = useState(userData.imageUrl);
+  useEffect(() => {
+    const fetchTopic = async () => {
+      try {
+        const response = await api.get(`/topics/${id}`);
+        setTopic(response.data);
+      } catch (error) {
+        console.error("Error fetching topic:", error);
+      }
+    };
+
+    fetchTopic();
+  }, [id]);
   if (!topic) {
-    return <div>Topic not found</div>;
+    return <div></div>;
   }
-  function handleCreateComment() {
+  async function handleCreateComment() {
     const newPost = {
       id: Math.max(...topic.posts.map((p) => p.id)) + 1,
       title: "New Comment",
@@ -66,11 +44,19 @@ function Topic({ userData }) {
     topic.posts.push(newPost);
     setComment("");
     setModalIsOpen(false);
+    try {
+      await api.post(`/topics/${id}/posts`, newPost);
+      setTopic({ ...topic, posts: [...topic.posts, newPost] });
+      setComment("");
+      setModalIsOpen(false);
+    } catch (error) {
+      console.error("Error adding comment:", error);
+    }
   }
   return (
     <div className="topic p-4">
         <RouteInfo start={start} end={end} />
-      <h1 className="text-2xl font-bold mb-4">{topic.title} By {topic.name}</h1>
+      <h1 className="text-2xl font-bold mb-4">{topic.title} By {topic.author}</h1>
       <p className="text-gray-700 mb-4">{topic.description}</p>
 
       <button
@@ -80,7 +66,7 @@ function Topic({ userData }) {
         Add Comment
       </button>
 
-      {topic.posts.map((post) => (
+      {topic.posts.map((post, index) => (
         <Comment key={post.id} comment={post}/>
       ))}
 

@@ -31,9 +31,10 @@
 // }
 
 // export default Home;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "../services/api";
 import { Link } from "react-router-dom";
-import { mockTopics } from "../mockData";
+// import { mockTopics } from "../mockData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import useLikes from "../hooks/useLikes";
@@ -44,7 +45,7 @@ function TopicCard({ topic }) {
   console.log("TopicCard:", topic);
   return (
     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
-      <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:text-blue-700">
+      <Link to={`/topic/${topic._id}`} className="text-blue-500 hover:text-blue-700">
         <h2 className="text-xl font-bold">
           {topic.title}{' '}
         </h2>
@@ -67,16 +68,29 @@ function TopicCard({ topic }) {
         </button>
       </div>
       <div className="flex justify-end">
-        <span className="text-gray-600">Created by {topic.name}</span>
+        <span className="text-gray-600">Created by {topic.author}</span>
       </div>
     </div>
   );
 }
 
-function Home({ topics, userProfile, userData }) {
+function Home({ userProfile, userData }) {
   //  console.log("User Profile:", userData);
+  const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState("");
-
+  useEffect(() => {
+    const fetchTopics = async () => {
+      try {
+        const response = await api.get("/topics");
+        console.log("ss"+response.data)
+        setTopics(response.data);
+      } catch (error) {
+        console.error("Error fetching topics:", error);
+      }
+    };
+    fetchTopics();
+  }, []);
+  
   function handleSearch(e) {
     setSearch(e.target.value);
   }

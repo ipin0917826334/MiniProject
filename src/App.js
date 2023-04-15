@@ -5,10 +5,10 @@ import Home from "./components/Home";
 import Topic from "./components/Topic";
 import NewTopic from "./components/NewTopic";
 import { useState } from "react";
-import { mockTopics, addNewTopic } from "./mockData";
+// import { mockTopics, addNewTopic } from "./mockData";
 
 function App() {
-  const [topics, setTopics] = useState(mockTopics);
+  // const [topics, setTopics] = useState(mockTopics);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const userData = JSON.parse(localStorage.getItem('userData'));
@@ -36,12 +36,12 @@ function App() {
             <Route
               exact
               path="/"
-              element={<Home topics={topics} userProfile={userProfile} userData={userData} />}
+              element={<Home userProfile={userProfile} userData={userData} />}
             />
             <Route
               exact
               path="/new-topic"
-              element={<NewTopic topics={topics} setTopics={addNewTopic} userData={userData} />}
+              element={<NewTopic userData={userData} />}
             />
             <Route path="/topic/:id" element={<Topic userData={userData} />} />
           </Routes>

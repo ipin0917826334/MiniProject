@@ -1,28 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addNewTopic } from "../mockData";
+// import { addNewTopic } from "../mockData";
+import api from "../services/api";
 
-function NewTopic({ topics, setTopics, userData }) {
+function NewTopic({ userData }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
-  const [name, setName] = useState(userData.name);
+  const [author, setAuthor] = useState(userData.name);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("User Profile:", userData.name);
+  
     const newTopic = {
       title,
       description,
       likes,
       dislikes,
       posts: [],
-      name,
+      author,
     };
-    const addedTopic = setTopics(newTopic);
-    navigate(`/topic/${addedTopic.id}`);
+  
+    try {
+      const response = await api.post("/topics", newTopic);
+      console.log("Response:", response); // Add this line to log the response
+      navigate(`/topic/${response.data._id}`);
+    } catch (error) {
+      console.error("Error creating new topic:", error);
+    }
   }
   
   return (
