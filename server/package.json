@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "latest",
-    "cors": "latest",
+    "mongoose": "7.0.3",
+    "cors": "^2.8.5",
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
