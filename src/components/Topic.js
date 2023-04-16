@@ -12,11 +12,11 @@ function Topic({ userData }) {
   const [topic, setTopic] = useState(null);
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [start, setStart] = useState("บ้านกูเอง");
-  const [end, setEnd] = useState("โชว์ปิงปอง");
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const [name, setName] = useState("");
   const [imgProfile, setimgProfile] = useState("");
-  console.log(userData)
+  // console.log(userData)
   useEffect(() => {
     if (userData){
       setName(userData.name)

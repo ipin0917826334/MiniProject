@@ -11,13 +11,14 @@ function NewTopic({ userData }) {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [author, setAuthor] = useState(userData.name);
-  const [vehicles, setVehicles] = useState([])
-  const [start, setStart] = useState("")
-  const [end, setEnd] = useState("")
+  const [vehicles, setVehicles] = useState([]);
+  const [start, setStart] = useState("");
+  const [destination, setDestination] = useState("");
 
   const updateVehicles = (vehicles) => {
-    setVehicles(vehicles)
-  }
+    setVehicles(vehicles);
+    console.log(vehicles);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -31,7 +32,7 @@ function NewTopic({ userData }) {
       author,
       start,
       vehicles,
-      end
+      destination,
     };
 
     try {
@@ -48,7 +49,9 @@ function NewTopic({ userData }) {
       <h2 className="text-xl mb-4">Create New Topic</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="title" className="block mb-1">Title:</label>
+          <label htmlFor="title" className="block mb-1">
+            Title:
+          </label>
           <input
             type="text"
             id="title"
@@ -59,7 +62,9 @@ function NewTopic({ userData }) {
           />
         </div>
         <div>
-          <label htmlFor="description" className="block mb-1">Description:</label>
+          <label htmlFor="description" className="block mb-1">
+            Description:
+          </label>
           <textarea
             id="description"
             value={description}
@@ -68,8 +73,44 @@ function NewTopic({ userData }) {
             className="w-full p-2 h-32 border border-gray-300 rounded"
           ></textarea>
         </div>
-        <VehicleInput updateVehicles={updateVehicles} />
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">Create Topic</button>
+        <div>
+          <div>
+            <label htmlFor="start" className="block mb-1">
+              Start:
+            </label>
+            <input
+              type="text"
+              id="start"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
+              required
+              className="p-2 border border-gray-300 rounded"
+            />
+          </div>
+          <div>
+            <label htmlFor="destination" className="block mb-1">
+              Destination:
+            </label>
+            <input
+              type="text"
+              id="destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              required
+              className="p-2 border border-gray-300 rounded"
+            />
+          </div>
+        </div>
+        <div>
+          <VehicleInput updateVehicles={updateVehicles} />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Create Topic
+        </button>
       </form>
     </div>
   );
