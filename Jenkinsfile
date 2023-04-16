@@ -24,8 +24,8 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 script {
-                    docker.build('ipin0917826334/forum-server', './server')
-                    docker.build('ipin0917826334/forum-client')
+                    docker.build('forum-server', './server')
+                    docker.build('forum-client')
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         sh 'docker tag forum-client ipin0917826334/forum-client'
                         sh 'docker image push ipin0917826334/forum-client'
