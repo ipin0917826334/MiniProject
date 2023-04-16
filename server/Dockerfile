@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+RUN npm install --global nodemon
 # Install the dependencies
 RUN npm install --force
 
