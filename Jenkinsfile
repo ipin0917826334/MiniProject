@@ -9,7 +9,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'npm install'
+                sh 'npm install --force'
             }
         }
 
