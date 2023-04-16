@@ -23,8 +23,8 @@ pipeline {
             steps {
                 echo 'Deploying...'
                 script {
+                    docker.build('ipin0917826334/forum-server', './server')
                     docker.build('ipin0917826334/forum-client')
-                    docker.build('ipin0917826334/forum-server', '/server')
                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                         sh 'docker push ipin0917826334/forum-client'
                         sh 'docker push ipin0917826334/forum-server'
