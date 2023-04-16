@@ -3,6 +3,7 @@ pipeline {
     
     environment {
         CI = 'false'
+        DOCKERHUB_COMMON_CREDS = credentials('dockerhub')
     }
     stages {
         stage('Install dependencies') {
@@ -25,7 +26,7 @@ pipeline {
                 script {
                     docker.build('ipin0917826334/forum-server', './server')
                     docker.build('ipin0917826334/forum-client')
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         sh 'docker push ipin0917826334/forum-client'
                         sh 'docker push ipin0917826334/forum-server'
                     }
