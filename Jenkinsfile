@@ -27,8 +27,11 @@ pipeline {
                     docker.build('ipin0917826334/forum-server', './server')
                     docker.build('ipin0917826334/forum-client')
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        sh 'docker push ipin0917826334/forum-client'
-                        sh 'docker push ipin0917826334/forum-server'
+                        sh 'docker tag forum-client ipin0917826334/forum-client'
+                        sh 'docker image push ipin0917826334/forum-client'
+                        sh 'docker tag forum-server ipin0917826334/forum-server'
+                        sh 'docker image push ipin0917826334/forum-server'
+                        
                     }
                 }
             }
