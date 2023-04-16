@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN npm install --global nodemon
+RUN npm install --global express
 # Install the dependencies
 RUN npm install --force
 
