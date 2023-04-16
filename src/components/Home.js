@@ -45,12 +45,17 @@ function TopicCard({ topic }) {
   console.log("TopicCard:", topic);
   return (
     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
+      <div className="flex flex-nowarp gap-2">
       <Link to={`/topic/${topic._id}`} className="text-blue-500 hover:text-blue-700">
         <h2 className="text-xl font-bold">
-          {topic.title}{' '}
+          {topic.title}
         </h2>
       </Link>
-      <p className="text-gray-700">{topic.description}</p>
+      <div className="mt-0.5">
+      ({topic.commentCount} comments)
+      </div>
+      </div>
+      <p className="text-gray-700">Description: {topic.description}</p>
       <div className="flex items-center mt-2">
         <button
           className="flex items-center bg-blue-500 text-white px-2 py-1 rounded mr-2"
@@ -74,7 +79,7 @@ function TopicCard({ topic }) {
   );
 }
 
-function Home({ userProfile, userData }) {
+function Home({ userData }) {
   //  console.log("User Profile:", userData);
   const [topics, setTopics] = useState([]);
   const [search, setSearch] = useState("");
@@ -82,7 +87,7 @@ function Home({ userProfile, userData }) {
     const fetchTopics = async () => {
       try {
         const response = await api.get("/topics");
-        console.log("ss"+response.data)
+        // console.log("ss"+response.data)
         setTopics(response.data);
       } catch (error) {
         console.error("Error fetching topics:", error);
@@ -102,10 +107,11 @@ function Home({ userProfile, userData }) {
   return (
     <div className="home p-4">
       <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold text-gray-700">Forum</h1>
+        <h1 className="text-2xl font-bold text-gray-700">ไปไหนดี<span className="text-lg">  สังคมแห่งการปรึกษาด้านการเดินทาง</span></h1>
+        {userData == null?(<div></div>):(
         <Link to="/new-topic" className="bg-blue-500 text-white px-4 py-2 rounded">
           Create New Topic
-        </Link>
+        </Link>)}
       </div>
       <input
         type="text"

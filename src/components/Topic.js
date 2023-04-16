@@ -1,11 +1,11 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import Comment from "./Comment";
 import RouteInfo from './RouteInfo';
 import api from "../services/api";
 Modal.setAppElement("#root");
-    
+
 function Topic({ userData }) {
   const { id } = useParams();
   // const topic = mockTopics.find((topic) => topic.id.toString() === id);
@@ -14,8 +14,16 @@ function Topic({ userData }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [start, setStart] = useState("บ้านกูเอง");
   const [end, setEnd] = useState("โชว์ปิงปอง");
-  const [name, setName] = useState(userData.name);
-  const [imgProfile, setimgProfile] = useState(userData.imageUrl);
+  const [name, setName] = useState("");
+  const [imgProfile, setimgProfile] = useState("");
+  console.log(userData)
+  useEffect(() => {
+    if (userData){
+      setName(userData.name)
+      setimgProfile(userData.imageUrl)
+    }
+  }, [])
+
   useEffect(() => {
     const fetchTopic = async () => {
       try {
@@ -41,7 +49,7 @@ function Topic({ userData }) {
       author: name,
       imgProfile: imgProfile
     };
-    topic.posts.push(newPost);
+    // topic.posts.push(newPost);
     setComment("");
     setModalIsOpen(false);
     try {
@@ -55,19 +63,18 @@ function Topic({ userData }) {
   }
   return (
     <div className="topic p-4">
-        <RouteInfo start={start} end={end} />
+      <RouteInfo start={start} end={end} />
       <h1 className="text-2xl font-bold mb-4">{topic.title} By {topic.author}</h1>
       <p className="text-gray-700 mb-4">{topic.description}</p>
-
-      <button
+      {userData == null ? (<div></div>) : (<button
         className="bg-green-500 text-white px-4 py-2 rounded mb-4"
         onClick={() => setModalIsOpen(true)}
       >
         Add Comment
-      </button>
+      </button>)}
 
       {topic.posts.map((post, index) => (
-        <Comment key={post.id} comment={post}/>
+        <Comment key={post._id} comment={post} user={userData}/>
       ))}
 
       <Modal

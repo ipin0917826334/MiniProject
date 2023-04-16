@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { addNewTopic } from "../mockData";
+import VehicleInput from "./VehicleInput"; // Import the VehicleInput component
 import api from "../services/api";
 
 function NewTopic({ userData }) {
@@ -10,10 +11,17 @@ function NewTopic({ userData }) {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
   const [author, setAuthor] = useState(userData.name);
+  const [vehicles, setVehicles] = useState([])
+  const [start, setStart] = useState("")
+  const [end, setEnd] = useState("")
+
+  const updateVehicles = (vehicles) => {
+    setVehicles(vehicles)
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
+
     const newTopic = {
       title,
       description,
@@ -21,8 +29,11 @@ function NewTopic({ userData }) {
       dislikes,
       posts: [],
       author,
+      start,
+      vehicles,
+      end
     };
-  
+
     try {
       const response = await api.post("/topics", newTopic);
       console.log("Response:", response); // Add this line to log the response
@@ -31,7 +42,7 @@ function NewTopic({ userData }) {
       console.error("Error creating new topic:", error);
     }
   }
-  
+
   return (
     <div className="new-topic p-4">
       <h2 className="text-xl mb-4">Create New Topic</h2>
@@ -57,6 +68,7 @@ function NewTopic({ userData }) {
             className="w-full p-2 h-32 border border-gray-300 rounded"
           ></textarea>
         </div>
+        <VehicleInput updateVehicles={updateVehicles} />
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">Create Topic</button>
       </form>
     </div>

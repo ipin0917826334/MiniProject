@@ -36,6 +36,7 @@ function Header() {
 
     // Remove user data from localStorage
     localStorage.removeItem("userData");
+    window.location.reload(false);
   };
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -52,11 +53,11 @@ function Header() {
     <header className="header bg-blue-500 text-white px-4 py-3 flex items-center justify-between">
       <div className="flex items-center">
         <NavLink exact to="/" activeClassName="text-blue-200" className="mr-4">
-          Home
+        ไปไหนดี
         </NavLink>
-        <NavLink to="/new-topic" activeClassName="text-blue-200">
+        {userData == null?(<div></div>):( <NavLink to="/new-topic" activeClassName="text-blue-200">
           New Topic
-        </NavLink>
+        </NavLink>)}
       </div>
 
       {!isAuthenticated ? (
