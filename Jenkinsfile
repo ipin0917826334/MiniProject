@@ -39,6 +39,7 @@ pipeline {
             steps {
                 sh "docker run -d -p 3000:3000 --name Forum-client forum-client"
                 sh "docker run -d -p 5001:5001 --name Forum-server forum-server"
+                sh "docker ps -a"
             }
         }
     }
