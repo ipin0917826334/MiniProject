@@ -9,6 +9,8 @@ COPY package*.json ./
 
 RUN npm install --global nodemon
 RUN npm install express --save
+RUN npm install cors --save
+RUN npm install mongoose
 # Install the dependencies
 RUN npm install --force
 
