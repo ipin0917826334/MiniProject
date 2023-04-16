@@ -23,7 +23,7 @@ FROM nginx:1.21
 COPY --from=0 /app/build /usr/share/nginx/html
 
 # Expose port 80 for the web server
-EXPOSE 80
+EXPOSE 3000
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
