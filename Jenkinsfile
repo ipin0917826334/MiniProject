@@ -26,13 +26,12 @@ pipeline {
                 script {
                     docker.build('forum-server', './server')
                     docker.build('forum-client')
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        sh 'docker tag forum-client ipin0917826334/forum-client'
-                        sh 'docker image push ipin0917826334/forum-client'
-                        sh 'docker tag forum-server ipin0917826334/forum-server'
-                        sh 'docker image push ipin0917826334/forum-server'
+                    sh 'docker login -u $DOCKERHUB_COMMON_CREDS_USR -p $DOCKERHUB_COMMON_CREDS_PSW'
+                    sh 'docker tag forum-client ipin0917826334/forum-client'
+                    sh 'docker image push ipin0917826334/forum-client'
+                    sh 'docker tag forum-server ipin0917826334/forum-server'
+                    sh 'docker image push ipin0917826334/forum-server'
                         
-                    }
                 }
             }
         }
