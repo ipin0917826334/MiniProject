@@ -1,20 +1,20 @@
-# Use an official Node.js runtime as a parent image
+# Use the official Node.js image as a base image
 FROM node:14
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install any needed dependencies
-RUN npm ci
+# Install the dependencies
+RUN npm install --force
 
-# Copy the rest of the application to the working directory
+# Copy the rest of the application code
 COPY . .
 
-# Expose port 5001 for the API server
+# Expose the backend port
 EXPOSE 5001
 
-# Start the Express application
+# Start the application
 CMD ["npm", "start"]
