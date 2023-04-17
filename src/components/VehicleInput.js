@@ -71,6 +71,7 @@ const VehicleInput = ({updateVehicles}) => {
         />
         <button
           onClick={addVehicle}
+          type="button"
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
           เพิ่ม
@@ -92,6 +93,7 @@ const VehicleInput = ({updateVehicles}) => {
             <span>{vehicle.name}</span>
             <button
               onClick={() => removeVehicle(index)}
+              type="button"
               className="bg-red-500 text-white py-1 px-2 rounded"
             >
               ลบ
