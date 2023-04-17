@@ -69,7 +69,7 @@ function Topic({ userData }) {
   }
   return (
     <div className="topic p-4">
-      <RouteInfo start={start} end={end} vehicles={vehicles} />
+      <RouteInfo start={start} destination={destination} vehicles={vehicles} />
       <h1 className="text-2xl font-bold mb-4">
         {topic.title} By {topic.author}
       </h1>
