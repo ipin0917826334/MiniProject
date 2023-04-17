@@ -9,13 +9,16 @@ pipeline {
         stage('Initialize') {
             steps {
                 echo 'Initial : Delete  containers and images'
-                sh 'docker stop Forum-server || true'
-                sh 'docker rm forum-server || true'
-                sh 'docker rmi forum-server || true'
+                sh 'docker stop $(docker ps -a -q)'
+                sh 'docker rm $(docker ps -a -q)'
+                sh 'docker rmi $(docker images -a -q)'
+                // sh 'docker stop Forum-server || true'
+                // sh 'docker rm forum-server || true'
+                // sh 'docker rmi forum-server || true'
 
-                sh 'docker stop Forum-client || true'
-                sh 'docker rm forum-client || true'
-                sh 'docker rmi forum-client || true'
+                // sh 'docker stop Forum-client || true'
+                // sh 'docker rm forum-client || true'
+                // sh 'docker rmi forum-client || true'
               }
         }
         stage('Install dependencies') {
