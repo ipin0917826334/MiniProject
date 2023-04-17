@@ -53,7 +53,9 @@ function Header() {
     <header className="header bg-blue-500 text-white px-4 py-3 flex items-center justify-between">
       <div className="flex items-center">
         <NavLink exact to="/" activeClassName="text-blue-200" className="mr-4">
-        ไปไหนดี
+           <img src="/logo.png"
+            alt="home"
+            className="h-10 w-10 rounded-full mr-2"></img>
         </NavLink>
         {userData == null?(<div></div>):( <NavLink to="/new-topic" activeClassName="text-blue-200">
           New Topic
