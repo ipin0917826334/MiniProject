@@ -19,12 +19,12 @@ function TopicCard({ topic }) {
           </h2>
         </Link>
       </div>
-      <p className="text-gray-600 mt-2">Description: {topic.description}</p>
+      <p className="text-gray-600 mt-2">รายละเอียด: {topic.description}</p>
       <div className="mt-1 text-sm text-gray-500 mt-3">
-        <FontAwesomeIcon icon={faComment} className="mr-1" /> {topic.commentCount} comments
+        <FontAwesomeIcon icon={faComment} className="mr-1" /> {topic.commentCount} ความคิดเห็น
         </div>
       <div className="flex justify-end mt-4">
-        <span className="text-gray-500">Created by {topic.author}</span>
+        <span className="text-gray-500">สร้างโดย {topic.author}</span>
       </div>
     </div>
   );
