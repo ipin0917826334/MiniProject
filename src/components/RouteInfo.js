@@ -12,12 +12,12 @@ import {
 
 function RouteInfo({ start, destination, vehicles }) {
   const transportIcons = {
-    bus: faBus,
-    subway: faSubway,
-    train: faTrain,
-    taxi: faTaxi,
-    bicycle: faBicycle,
-    walking: faWalking,
+    รถบัส: faBus,
+    รถไฟใต้ดิน: faSubway,
+    รถไฟ: faTrain,
+    แท็กซี่: faTaxi,
+    จักรยาน: faBicycle,
+    เดิน: faWalking,
   };
 
   const elements = [

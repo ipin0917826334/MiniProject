@@ -22,7 +22,6 @@ code {
 .route-info__vehicle {
   display: flex;
   align-items: center;
-  font-size: 24px;
   margin: 0 1rem;
 }
 
@@ -31,6 +30,6 @@ code {
 }
 
 .route-info__arrow {
-  font-size: 24px;
+  font-size: 16px;
   margin: 0 1rem;
 }

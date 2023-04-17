@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown, faComment } from "@fortawesome/free-solid-svg-icons";
 import useLikes from "../hooks/useLikes";
 import useVote from "../hooks/useVote";
+import RouteInfo from "./RouteInfo";
 
 function TopicCard({ topic }) {
   const { likes, dislikes, handleLike, handleDislike } = useVote(topic.likes, topic.dislikes);
   console.log("TopicCard:", topic);
   return (
     <div className="topic-card bg-white p-4 mb-4 rounded-lg shadow-md">
+     <RouteInfo start={topic.start} destination={topic.destination} vehicles={topic.vehicles} />
       <div className="flex flex-wrap gap-2">
         <Link to={`/topic/${topic._id}`} className="text-blue-600 hover:text-blue-800">
           <h2 className="text-2xl font-semibold">
@@ -19,12 +21,12 @@ function TopicCard({ topic }) {
           </h2>
         </Link>
       </div>
-      <p className="text-gray-600 mt-2">Description: {topic.description}</p>
+      <p className="text-gray-600 mt-2">รายละเอียด: {topic.description}</p>
       <div className="mt-1 text-sm text-gray-500 mt-3">
-        <FontAwesomeIcon icon={faComment} className="mr-1" /> {topic.commentCount} comments
+        <FontAwesomeIcon icon={faComment} className="mr-1" /> {topic.commentCount} ความคิดเห็น
         </div>
       <div className="flex justify-end mt-4">
-        <span className="text-gray-500">Created by {topic.author}</span>
+        <span className="text-gray-500">สร้างโดย {topic.author}</span>
       </div>
     </div>
   );
@@ -66,7 +68,7 @@ function Home({ userData }) {
       </div>
       <input
         type="text"
-        placeholder="Search for topics..."
+        placeholder="ค้นหา Keyword"
         className="w-full p-2 mb-4 border border-gray-300 rounded"
         value={search}
         onChange={handleSearch}

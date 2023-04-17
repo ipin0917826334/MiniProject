@@ -58,7 +58,7 @@ function Header() {
             className="h-10 w-10 rounded-full mr-2"></img>
         </NavLink>
         {userData == null?(<div></div>):( <NavLink to="/new-topic" activeClassName="text-blue-200">
-          New Topic
+          สร้างหัวข้อ
         </NavLink>)}
       </div>
 
