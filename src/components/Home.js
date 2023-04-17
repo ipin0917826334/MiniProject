@@ -58,10 +58,10 @@ function Home({ userData }) {
   return (
     <div className="home p-4">
       <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold text-gray-700">ไปไหนดี<span className="text-lg">  สังคมแห่งการปรึกษาด้านการเดินทาง</span></h1>
+        <h1 className="text-2xl font-bold text-gray-700 font-display">ไปไหนดี<span className="text-lg">  สังคมแห่งการปรึกษาด้านการเดินทาง</span></h1>
         {userData == null?(<div></div>):(
-        <Link to="/new-topic" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Create New Topic
+        <Link to="/new-topic" className="bg-blue-500 text-white px-4 py-2 rounded font-display">
+          สร้างหัวข้อ
         </Link>)}
       </div>
       <input
