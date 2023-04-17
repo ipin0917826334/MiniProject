@@ -24,11 +24,13 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
       setLikes(newLikes);
 
       try {
-        await api.put(`/topics/comments/${commentId}`, { action: "like" });
-      } catch (error) {
+        const response = await api.put(`/topics/comments/${commentId}`, { action: "like" });
+        const updatedComment = response.data; // Assuming your backend returns the updated comment data
+        setLikes(updatedComment.likes); // Update the local state with the new likes count from the backend
+    } catch (error) {
         console.error("Error updating likes:", error);
-      }
-    } // Add this closing brace
+    }
+    }
   }
 
   async function handleDislike() {
@@ -47,9 +49,11 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
       setDislikes(newDislikes);
 
       try {
-        await api.put(`/topics/comments/${commentId}`, { action: "dislike" });
-      } catch (error) {
-        console.error("Error updating likes:", error);
+        const response = await api.put(`/topics/comments/${commentId}`, { action: "dislike" });
+        const updatedComment = response.data; // Assuming your backend returns the updated comment data
+        setLikes(updatedComment.dislikes); // Update the local state with the new likes count from the backend
+    } catch (error) {
+      console.error("Error updating likes:", error);
       }
     }
   }
