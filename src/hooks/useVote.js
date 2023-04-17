@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
-const useVote = (initialLikes, initialDislikes, commentId) => {
+const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
   const [likes, setLikes] = useState(initialLikes);
   const [dislikes, setDislikes] = useState(initialDislikes);
-  const [vote, setVote] = useState(null);
+  const [vote, setVote] = useState(initialVote);
   // const [user, setUser] = useState(userData)
 
   // console.log("sss"+user)
