@@ -8,12 +8,11 @@ Modal.setAppElement("#root");
 
 function Topic({ userData }) {
   const { id } = useParams();
-  const location = useLocation();
   const [topic, setTopic] = useState(null);
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [destination, setDestination] = useState("");
   const [name, setName] = useState("");
   const [vehicles, setVehicles] = useState([]);
   const [imgProfile, setimgProfile] = useState("");
@@ -28,9 +27,10 @@ function Topic({ userData }) {
     const fetchTopic = async () => {
       try {
         const response = await api.get(`/topics/${id}`);
+        console.log(response);
         //Set the start, destination, and vehicles state using the fetched data
         setStart(response.data.start);
-        setEnd(response.data.destination);
+        setDestination(response.data.destination);
         setVehicles(response.data.vehicles);
         setTopic(response.data);
       } catch (error) {
@@ -39,7 +39,7 @@ function Topic({ userData }) {
     };
 
     fetchTopic();
-  }, [id, location.state]);
+  }, [id]);
 
   if (!topic) {
     return <div></div>;
