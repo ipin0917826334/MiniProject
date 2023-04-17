@@ -43,7 +43,7 @@ exports.createComment = async (req, res) => {
   res.json(comment);
 };
 exports.updateCommentLikesDislikes = async (req, res) => {
-  const userId = req.user._id; // Assuming you have the user in the request object
+  const userId = req.body.userId; // Assuming you have the user in the request object
   const commentId = req.params.comment_id;
   const { likes, dislikes, action } = req.body;
 
