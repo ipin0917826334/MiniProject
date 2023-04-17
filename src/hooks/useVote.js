@@ -23,19 +23,12 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
       }
       setLikes(newLikes);
 
-      try {
-        await api.put(`/topics/comments/${commentId}`, {
-          likes: newLikes,
-          dislikes: newDislikes,
-          action: "like",
-        });
-      } catch (error) {
-        console.error("Error updating likes:", error);
+       try {
+          await api.put(`/topics/comments/${commentId}`, { action: "like" });
+       } catch (error) {
+          console.error("Error updating likes:", error);
+        }
       }
-    } else {
-      alert("You must login first")
-    }
-  }
 
   async function handleDislike() {
     if(userData) {
@@ -53,18 +46,11 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
       setDislikes(newDislikes);
 
       try {
-        await api.put(`/topics/comments/${commentId}`, {
-          likes: newLikes,
-          dislikes: newDislikes,
-          action: "dislike",
-      });
+        await api.put(`/topics/comments/${commentId}`, { action: "dislike" });
       } catch (error) {
         console.error("Error updating likes:", error);
       }
-    } else {
-      alert("You must login first")
     }
-  }
 
   return { likes, dislikes, handleLike, handleDislike };
 };
