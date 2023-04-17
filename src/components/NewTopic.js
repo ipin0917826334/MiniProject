@@ -120,7 +120,7 @@ function NewTopic({ userData }) {
 
   return (
     <div className="new-topic p-4">
-      <h2 className="text-xl mb-4">Create New Topic</h2>
+      <h2 className="text-xl mb-4">สร้างหัวข้อใหม่</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block mb-1">
