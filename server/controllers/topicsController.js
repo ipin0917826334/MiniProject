@@ -1,6 +1,5 @@
 const Topic = require('../models/Topic');
 const Comment = require('../models/Comment');
-const Vehicle = require('../models/Vehicle'); // Import the Vehicle model
 
 
 exports.getTopics = async (req, res) => {
@@ -9,8 +8,7 @@ exports.getTopics = async (req, res) => {
 };
 
 exports.createTopic = async (req, res) => {
-  const { title, description, author, posts ,vehicles, likes, dislikes, start, destination } = req.body;
-  const newVehicles = await Vehicle.insertMany(vehicles);
+  const { title, description, author, posts , vehicles, likes, dislikes, start, destination } = req.body;
 
   const topic = new Topic({
     title,
@@ -21,7 +19,7 @@ exports.createTopic = async (req, res) => {
     dislikes,
     start,
     destination,
-    vehicles: newVehicles.map(vehicle => vehicle._id)
+    vehicles
   });
   await topic.save();
 

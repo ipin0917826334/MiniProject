@@ -62,6 +62,7 @@ function NewTopic({ userData }) {
 
   // Custom validation function to ensure vehicles array is not empty
   const validateVehicles = () => {
+    console.log(vehicles)
     if (!vehicles || vehicles.length === 0) {
       setVehicleError("Please add at least one vehicle.");
       return false;
@@ -106,8 +107,8 @@ function NewTopic({ userData }) {
       vehicles,
       destination,
     };
-    console.log("newTopic");
-    console.log(newTopic);
+    console.log("New topic data:", newTopic);
+    
     try {
       const response = await api.post("/topics", newTopic);
       console.log("Response:", response); // Add this line to log the response
