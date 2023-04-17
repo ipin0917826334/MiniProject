@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown, faComment } from "@fortawesome/free-solid-svg-icons";
 import useLikes from "../hooks/useLikes";
 import useVote from "../hooks/useVote";
+import RouteInfo from "./RouteInfo";
 
 function TopicCard({ topic }) {
   const { likes, dislikes, handleLike, handleDislike } = useVote(topic.likes, topic.dislikes);
