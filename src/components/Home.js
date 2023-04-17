@@ -66,7 +66,7 @@ function Home({ userData }) {
       </div>
       <input
         type="text"
-        placeholder="Search for topics..."
+        placeholder="ค้นหา Keyword"
         className="w-full p-2 mb-4 border border-gray-300 rounded"
         value={search}
         onChange={handleSearch}
