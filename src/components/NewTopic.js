@@ -106,7 +106,8 @@ function NewTopic({ userData }) {
       vehicles,
       destination,
     };
-
+    console.log("newTopic");
+    console.log(newTopic);
     try {
       const response = await api.post("/topics", newTopic);
       console.log("Response:", response); // Add this line to log the response
