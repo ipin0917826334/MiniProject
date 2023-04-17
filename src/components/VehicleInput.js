@@ -71,6 +71,7 @@ const removeVehicle = (index) => {
         />
         <button
           onClick={addVehicle}
+          type="button" // Add this line to change the button type
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
           Add
