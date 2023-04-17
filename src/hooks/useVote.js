@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
-const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
+
+const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
   const [likes, setLikes] = useState(initialLikes);
   const [dislikes, setDislikes] = useState(initialDislikes);
   const [vote, setVote] = useState(initialVote);
-  // const [user, setUser] = useState(userData)
 
-  // console.log("sss"+user)
   const userData = JSON.parse(localStorage.getItem('userData'));
+
   async function handleLike() {
-    if(userData) {
+    if (userData) {
       let newLikes = likes;
       if (vote === "like") {
         newLikes--;
@@ -23,15 +23,16 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
       }
       setLikes(newLikes);
 
-       try {
-          await api.put(`/topics/comments/${commentId}`, { action: "like" });
-       } catch (error) {
-          console.error("Error updating likes:", error);
-        }
+      try {
+        await api.put(`/topics/comments/${commentId}`, { action: "like" });
+      } catch (error) {
+        console.error("Error updating likes:", error);
       }
+    } // Add this closing brace
+  }
 
   async function handleDislike() {
-    if(userData) {
+    if (userData) {
       let newDislikes = dislikes;
       if (vote === "dislike") {
         newDislikes--;
@@ -51,6 +52,7 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
         console.error("Error updating likes:", error);
       }
     }
+  }
 
   return { likes, dislikes, handleLike, handleDislike };
 };
