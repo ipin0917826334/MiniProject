@@ -111,9 +111,7 @@ function NewTopic({ userData }) {
     try {
       const response = await api.post("/topics", newTopic);
       console.log("Response:", response); // Add this line to log the response
-      navigate(`/topic/${response.data._id}`, {
-        state: { start, destination, vehicles },
-      });
+      navigate(`/topic/${response.data._id}`);
     } catch (error) {
       console.error("Error creating new topic:", error);
     }
