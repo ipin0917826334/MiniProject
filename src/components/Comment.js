@@ -4,9 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 
 const Comment = ({ comment, userData }) => {
+  const userVote = userData
+    ? comment.likedBy.includes(userData._id)
+      ? "like"
+      : comment.dislikedBy.includes(userData._id)
+      ? "dislike"
+      : null
+    : null;
+
   const { likes, dislikes, handleLike, handleDislike } = useVote(
     comment.likes,
     comment.dislikes,
+    userVote,
     comment._id
   );
 
