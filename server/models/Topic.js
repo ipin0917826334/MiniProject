@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const TopicSchema = new mongoose.Schema({
   title: String,
@@ -8,14 +8,22 @@ const TopicSchema = new mongoose.Schema({
   author: String,
   start: String,
   destination: String,
-  vehicles: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Vehicle'
-  }],
+  vehicles: [
+    {
+      icon: {
+        type: String,
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: "Comment",
     },
   ],
   commentCount: {
@@ -24,5 +32,5 @@ const TopicSchema = new mongoose.Schema({
   },
 });
 
-const Topic = mongoose.model('Topic', TopicSchema);
+const Topic = mongoose.model("Topic", TopicSchema);
 module.exports = Topic;
