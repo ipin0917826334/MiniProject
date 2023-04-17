@@ -28,13 +28,7 @@ function Topic({ userData }) {
     const fetchTopic = async () => {
       try {
         const response = await api.get(`/topics/${id}`);
-        // if (location.state) {
-        //   const { start, destination, vehicles } = location.state;
-        //   setStart(start);
-        //   setEnd(destination);
-        //   setVehicles(vehicles);
-        // }
-        // Set the start, destination, and vehicles state using the fetched data
+        //Set the start, destination, and vehicles state using the fetched data
         setStart(response.data.start);
         setEnd(response.data.destination);
         setVehicles(response.data.vehicles);

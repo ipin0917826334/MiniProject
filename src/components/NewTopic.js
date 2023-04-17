@@ -62,7 +62,7 @@ function NewTopic({ userData }) {
 
   // Custom validation function to ensure vehicles array is not empty
   const validateVehicles = () => {
-    if (vehicles.length === 0) {
+    if (!vehicles || vehicles.length === 0) {
       setVehicleError("Please add at least one vehicle.");
       return false;
     } else {

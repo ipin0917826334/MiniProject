@@ -34,7 +34,7 @@ const VehicleInput = ({updateVehicles}) => {
   const addVehicle = () => {
     if (selectedIcon && vehicleName) {
       setVehicles([...vehicles, { icon: selectedIcon, name: vehicleName }]);
-      updateVehicles(...vehicles)
+      updateVehicles(vehicles)
       setSelectedIcon("");
       setVehicleName("");
     }
@@ -42,7 +42,7 @@ const VehicleInput = ({updateVehicles}) => {
 
   const removeVehicle = (index) => {
     setVehicles(vehicles.filter((_, i) => i !== index));
-    updateVehicles(...vehicles)
+    updateVehicles(vehicles)
   };
 
   return (
