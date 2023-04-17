@@ -3,7 +3,7 @@ import api from "../services/api";
 import { Link } from "react-router-dom";
 // import { mockTopics } from "../mockData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp, faThumbsDown, faComment } from "@fortawesome/free-solid-svg-icons";
 import useLikes from "../hooks/useLikes";
 import useVote from "../hooks/useVote";
 
@@ -11,36 +11,20 @@ function TopicCard({ topic }) {
   const { likes, dislikes, handleLike, handleDislike } = useVote(topic.likes, topic.dislikes);
   console.log("TopicCard:", topic);
   return (
-     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
-      <div className="flex flex-nowarp gap-2">
-      <Link to={`/topic/${topic._id}`} className="text-blue-500 hover:text-blue-700">
-        <h2 className="text-xl font-bold">
-          {topic.title}
-        </h2>
-      </Link>
-      <div className="mt-0.5">
-      ({topic.commentCount} comments)
+    <div className="topic-card bg-white p-4 mb-4 rounded-lg shadow-md">
+      <div className="flex flex-wrap gap-2">
+        <Link to={`/topic/${topic._id}`} className="text-blue-600 hover:text-blue-800">
+          <h2 className="text-2xl font-semibold">
+            {topic.title}
+          </h2>
+        </Link>
       </div>
-      </div>
-      <p className="text-gray-700">Description: {topic.description}</p>
-      {/* <div className="flex items-center mt-2">
-        <button
-          className="flex items-center bg-blue-500 text-white px-2 py-1 rounded mr-2"
-          onClick={handleLike}
-        >
-          <FontAwesomeIcon icon={faThumbsUp} className="mr-1" />
-          Like ({likes})
-        </button>
-        <button
-          className="flex items-center bg-red-500 text-white px-2 py-1 rounded"
-          onClick={handleDislike}
-        >
-          <FontAwesomeIcon icon={faThumbsDown} className="mr-1" />
-          Dislike ({dislikes})
-        </button>
-      </div> */}
-      <div className="flex justify-end">
-        <span className="text-gray-600">Created by {topic.author}</span>
+      <p className="text-gray-600 mt-2">Description: {topic.description}</p>
+      <div className="mt-1 text-sm text-gray-500 mt-3">
+        <FontAwesomeIcon icon={faComment} className="mr-1" /> {topic.commentCount} comments
+        </div>
+      <div className="flex justify-end mt-4">
+        <span className="text-gray-500">Created by {topic.author}</span>
       </div>
     </div>
   );
