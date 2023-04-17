@@ -47,7 +47,9 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
         setVote("dislike");
       }
       setDislikes(newDislikes);
-
+      console.log("vote:", vote);
+      console.log("likes:", likes);
+      console.log("dislikes:", dislikes);
       try {
         const response = await api.put(`/topics/comments/${commentId}`, { action: "dislike", userId: userData._id });
         const updatedComment = response.data; // Assuming your backend returns the updated comment data
