@@ -15,12 +15,12 @@ const VehicleInput = ({updateVehicles}) => {
   const [vehicleName, setVehicleName] = useState("");
 
   const transportIcons = [
-    { value: "bus", icon: faBus },
-    { value: "subway", icon: faSubway },
-    { value: "train", icon: faTrain },
-    { value: "taxi", icon: faTaxi },
-    { value: "bicycle", icon: faBicycle },
-    { value: "walking", icon: faWalking },
+    { value: "รถบัส", icon: faBus },
+    { value: "รถไฟใต้ดิน", icon: faSubway },
+    { value: "รถไฟ", icon: faTrain },
+    { value: "แท็กซี่", icon: faTaxi },
+    { value: "จักรยาน", icon: faBicycle },
+    { value: "เดิน", icon: faWalking },
   ];
 
   const handleIconChange = (e) => {
@@ -55,7 +55,7 @@ const removeVehicle = (index) => {
           onChange={handleIconChange}
           className="p-2 border border-gray-300 rounded"
         >
-          <option value="">Select transport icon</option>
+          <option value="">เลือกพาหนะ</option>
           {transportIcons.map((transport) => (
             <option key={transport.value} value={transport.value}>
               {transport.value}
@@ -74,7 +74,7 @@ const removeVehicle = (index) => {
           type="button" // Add this line to change the button type
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
-          Add
+          เพิ่ม
         </button>
       </div>
 
