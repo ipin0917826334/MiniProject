@@ -28,6 +28,7 @@ function Topic({ userData }) {
       try {
         const response = await api.get(`/topics/${id}`);
         console.log(response);
+        console.log(response.data.vehicles);
         //Set the start, destination, and vehicles state using the fetched data
         setStart(response.data.start);
         setDestination(response.data.destination);
