@@ -1,36 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
-// import axios from "axios";
-
-// function Home() {
-//   const [topics, setTopics] = useState([]);
-
-//   useEffect(() => {
-//     async function fetchTopics() {
-//       const response = await axios.get("https://api.example.com/topics");
-//       setTopics(response.data);
-//     }
-
-//     fetchTopics();
-//   }, []);
-
-//   return (
-//     <div className="home p-4">
-//       <h2 className="text-xl mb-4">Topics</h2>
-//       <ul className="list-disc list-inside">
-//         {topics.map((topic) => (
-//           <li key={topic.id}>
-//             <Link to={`/topic/${topic.id}`} className="text-blue-500 hover:underline">
-//               {topic.title}
-//             </Link>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
-// export default Home;
 import React, { useState, useEffect } from "react";
 import api from "../services/api";
 import { Link } from "react-router-dom";
@@ -44,7 +11,7 @@ function TopicCard({ topic }) {
   const { likes, dislikes, handleLike, handleDislike } = useVote(topic.likes, topic.dislikes);
   console.log("TopicCard:", topic);
   return (
-    <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
+     <div className="topic-card bg-gray-100 p-4 mb-4 rounded shadow">
       <div className="flex flex-nowarp gap-2">
       <Link to={`/topic/${topic._id}`} className="text-blue-500 hover:text-blue-700">
         <h2 className="text-xl font-bold">
