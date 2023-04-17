@@ -56,22 +56,22 @@ function TopicCard({ topic }) {
       </div>
       </div>
       <p className="text-gray-700">Description: {topic.description}</p>
-      <div className="flex items-center mt-2">
-        <button
-          className="flex items-center bg-blue-500 text-white px-2 py-1 rounded mr-2"
-          onClick={handleLike}
-        >
-          <FontAwesomeIcon icon={faThumbsUp} className="mr-1" />
-          Like ({likes})
-        </button>
-        <button
-          className="flex items-center bg-red-500 text-white px-2 py-1 rounded"
-          onClick={handleDislike}
-        >
-          <FontAwesomeIcon icon={faThumbsDown} className="mr-1" />
-          Dislike ({dislikes})
-        </button>
-      </div>
+//       <div className="flex items-center mt-2">
+//         <button
+//           className="flex items-center bg-blue-500 text-white px-2 py-1 rounded mr-2"
+//           onClick={handleLike}
+//         >
+//           <FontAwesomeIcon icon={faThumbsUp} className="mr-1" />
+//           Like ({likes})
+//         </button>
+//         <button
+//           className="flex items-center bg-red-500 text-white px-2 py-1 rounded"
+//           onClick={handleDislike}
+//         >
+//           <FontAwesomeIcon icon={faThumbsDown} className="mr-1" />
+//           Dislike ({dislikes})
+//         </button>
+//       </div>
       <div className="flex justify-end">
         <span className="text-gray-600">Created by {topic.author}</span>
       </div>
