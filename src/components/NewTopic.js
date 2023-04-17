@@ -124,7 +124,7 @@ function NewTopic({ userData }) {
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block mb-1">
-            Title:
+            หัวข้อ:
           </label>
           <input
             type="text"
@@ -140,7 +140,7 @@ function NewTopic({ userData }) {
         </div>
         <div>
           <label htmlFor="description" className="block mb-1">
-            Description:
+            รายละเอียด:
           </label>
           <textarea
             id="description"
@@ -156,7 +156,7 @@ function NewTopic({ userData }) {
         <div>
           <div>
             <label htmlFor="start" className="block mb-1">
-              Start:
+              จุดเริ่มต้น:
             </label>
             <input
               type="text"
@@ -172,7 +172,7 @@ function NewTopic({ userData }) {
           </div>
           <div>
             <label htmlFor="destination" className="block mb-1">
-              Destination:
+              ปลายทาง:
             </label>
             <input
               type="text"
