@@ -198,7 +198,7 @@ function NewTopic({ userData }) {
           type="submit"
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
-          Create Topic
+          สร้างหัวข้อ
         </button>
       </form>
     </div>
