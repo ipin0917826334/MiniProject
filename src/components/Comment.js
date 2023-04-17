@@ -11,14 +11,16 @@ const Comment = ({ comment, userData }) => {
       ? "dislike"
       : null
     : null;
-
+  console.log("userVote:", userVote);
   const { likes, dislikes, handleLike, handleDislike } = useVote(
     comment.likes,
     comment.dislikes,
     userVote,
     comment._id
   );
-
+  useEffect(() => {
+    console.log("vote state changed:", vote);
+  }, [vote]);
   
   return (
     <div className="comment bg-gray-100 p-4 my-4 rounded shadow">
