@@ -24,7 +24,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App flex flex-col min-h-screen">
+      <div className="App flex flex-col min-h-screen font-display">
         <Header
           isLoggedIn={isLoggedIn}
           userProfile={userProfile}
