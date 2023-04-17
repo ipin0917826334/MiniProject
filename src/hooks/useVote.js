@@ -24,7 +24,7 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
       setLikes(newLikes);
 
       try {
-        const response = await api.put(`/topics/comments/${commentId}`, { action: "like" });
+        const response = await api.put(`/topics/comments/${commentId}`, { action: "like", userId: userData._id });
         const updatedComment = response.data; // Assuming your backend returns the updated comment data
         setLikes(updatedComment.likes); // Update the local state with the new likes count from the backend
     } catch (error) {
@@ -49,7 +49,7 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
       setDislikes(newDislikes);
 
       try {
-        const response = await api.put(`/topics/comments/${commentId}`, { action: "dislike" });
+        const response = await api.put(`/topics/comments/${commentId}`, { action: "dislike", userId: userData._id });
         const updatedComment = response.data; // Assuming your backend returns the updated comment data
         setLikes(updatedComment.dislikes); // Update the local state with the new likes count from the backend
     } catch (error) {
