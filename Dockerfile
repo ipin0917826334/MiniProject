@@ -22,8 +22,12 @@ FROM nginx:1.21
 # Copy the build output to Nginx's default public folder
 COPY --from=0 /app/build /usr/share/nginx/html
 
+# Update the default.conf file to use the desired listening port
+RUN sed -i 's/listen\s*80;/listen 3000;/g' /etc/nginx/conf.d/default.conf
+RUN sed -i 's/listen\s*\[::\]:80;/listen [::]:3000;/g' /etc/nginx/conf.d/default.conf
+
 # Expose port 80 for the web server
-EXPOSE 3000
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
