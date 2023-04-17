@@ -18,9 +18,9 @@ const Comment = ({ comment, userData }) => {
     userVote,
     comment._id
   );
-  useEffect(() => {
-    console.log("vote state changed:", vote);
-  }, [vote]);
+ useEffect(() => {
+    console.log("userVote state changed:", userVote);
+  }, [userVote]);
   
   return (
     <div className="comment bg-gray-100 p-4 my-4 rounded shadow">
