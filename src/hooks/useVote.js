@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import api from "../services/api";
-
-const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
+const useVote = (initialLikes, initialDislikes, commentId) => {
   const [likes, setLikes] = useState(initialLikes);
   const [dislikes, setDislikes] = useState(initialDislikes);
-  const [vote, setVote] = useState(initialVote);
+  const [vote, setVote] = useState(null);
+  // const [user, setUser] = useState(userData)
 
+  // console.log("sss"+user)
   const userData = JSON.parse(localStorage.getItem('userData'));
-
   async function handleLike() {
-    if (userData) {
+    if(userData) {
       let newLikes = likes;
       if (vote === "like") {
         newLikes--;
@@ -24,17 +24,17 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
       setLikes(newLikes);
 
       try {
-        const response = await api.put(`/topics/comments/${commentId}`, { action: "like", userId: userData._id });
-        const updatedComment = response.data; // Assuming your backend returns the updated comment data
-        setLikes(updatedComment.likes); // Update the local state with the new likes count from the backend
-    } catch (error) {
+        await api.put(`/topics/comments/${commentId}`, { likes: newLikes });
+      } catch (error) {
         console.error("Error updating likes:", error);
-    }
+      }
+    } else {
+      alert("You must login first")
     }
   }
 
   async function handleDislike() {
-    if (userData) {
+    if(userData) {
       let newDislikes = dislikes;
       if (vote === "dislike") {
         newDislikes--;
@@ -47,16 +47,14 @@ const useVote = (initialLikes, initialDislikes, initialVote, commentId) => {
         setVote("dislike");
       }
       setDislikes(newDislikes);
-      console.log("vote:", vote);
-      console.log("likes:", likes);
-      console.log("dislikes:", dislikes);
+
       try {
-        const response = await api.put(`/topics/comments/${commentId}`, { action: "dislike", userId: userData._id });
-        const updatedComment = response.data; // Assuming your backend returns the updated comment data
-        setDislikes(updatedComment.dislikes); // Update the local state with the new likes count from the backend
-    } catch (error) {
-      console.error("Error updating likes:", error);
+        await api.put(`/topics/comments/${commentId}`, { dislikes: newDislikes });
+      } catch (error) {
+        console.error("Error updating likes:", error);
       }
+    } else {
+      alert("You must login first")
     }
   }
 

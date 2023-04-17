@@ -6,18 +6,6 @@ const CommentSchema = new mongoose.Schema({
   dislikes: Number,
   author: String,
   imgProfile: String,
-  likedBy: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
-  dislikedBy: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-  ],
 });
 
 const Comment = mongoose.model('Comment', CommentSchema);

@@ -43,42 +43,24 @@ exports.createComment = async (req, res) => {
   res.json(comment);
 };
 exports.updateCommentLikesDislikes = async (req, res) => {
-  const userId = req.body.userId; // Assuming you have the user in the request object
-  const commentId = req.params.comment_id;
-  const { likes, dislikes, action } = req.body;
-
-  try {
-    const comment = await Comment.findById(commentId);
-
-    if (!comment) {
-      res.status(404).json({ message: "Comment not found." });
-    } else {
-      // Update the likedBy and dislikedBy arrays based on the user's action
-      if (action === "like") {
-        if (!comment.likedBy.includes(userId)) {
-          comment.likedBy.push(userId);
-          comment.dislikedBy.pull(userId);
-        } else {
-          comment.likedBy.pull(userId);
-        }
-      } else if (action === "dislike") {
-        if (!comment.dislikedBy.includes(userId)) {
-          comment.dislikedBy.push(userId);
-          comment.likedBy.pull(userId);
-        } else {
-          comment.dislikedBy.pull(userId);
-        }
+    const commentId = req.params.comment_id;
+    const update = req.body;
+  
+    try {
+      const updatedComment = await Comment.findByIdAndUpdate(
+        commentId,
+        { $set: update },
+        { new: true, useFindAndModify: false }
+      );
+      console.log(commentId+"ss"+update);
+      if (!updatedComment) {
+        res.status(404).json({ message: "Comment not found." });
+      } else {
+        res.status(200).json(updatedComment);
       }
-
-      comment.likes = comment.likedBy.length;
-      comment.dislikes = comment.dislikedBy.length;
-
-      await comment.save();
-      res.status(200).json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Error updating comment." });
     }
-  } catch (error) {
-    res.status(500).json({ message: "Error updating comment." });
-  }
-};
+  };
   
 

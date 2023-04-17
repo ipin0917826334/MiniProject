@@ -45,28 +45,29 @@ function Topic({ userData }) {
   if (!topic) {
     return <div></div>;
   }
-  async function handleCreateComment() {
-    const newPost = {
-      id: Math.max(...topic.posts.map((p) => p.id)) + 1,
-      title: "New Comment",
-      content: comment,
-      likes: 0,
-      dislikes: 0,
-      author: name,
-      imgProfile: imgProfile,
-    };
-    // topic.posts.push(newPost);
+async function handleCreateComment() {
+  const newPost = {
+    id: Math.max(...topic.posts.map((p) => p.id)) + 1,
+    title: "New Comment",
+    content: comment,
+    likes: 0,
+    dislikes: 0,
+    author: name,
+    imgProfile: imgProfile,
+  };
+  // topic.posts.push(newPost);
+  setComment("");
+  setModalIsOpen(false);
+  try {
+    const response = await api.post(`/topics/${id}/posts`, newPost); // Capture the response
+    const createdComment = response.data; // Extract the created comment from the response
+    setTopic({ ...topic, posts: [...topic.posts, createdComment] }); // Use createdComment instead of newPost
     setComment("");
     setModalIsOpen(false);
-    try {
-      await api.post(`/topics/${id}/posts`, newPost);
-      setTopic({ ...topic, posts: [...topic.posts, newPost] });
-      setComment("");
-      setModalIsOpen(false);
-    } catch (error) {
-      console.error("Error adding comment:", error);
-    }
+  } catch (error) {
+    console.error("Error adding comment:", error);
   }
+}
   return (
     <div className="topic p-4">
       <RouteInfo start={start} destination={destination} vehicles={vehicles} />
