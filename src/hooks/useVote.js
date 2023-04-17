@@ -24,7 +24,11 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
       setLikes(newLikes);
 
       try {
-        await api.put(`/topics/comments/${commentId}`, { likes: newLikes });
+        await api.put(`/topics/comments/${commentId}`, {
+          likes: newLikes,
+          dislikes: newDislikes,
+          action: "like",
+        });
       } catch (error) {
         console.error("Error updating likes:", error);
       }
@@ -49,7 +53,11 @@ const useVote = (initialLikes, initialDislikes, initialVote ,commentId) => {
       setDislikes(newDislikes);
 
       try {
-        await api.put(`/topics/comments/${commentId}`, { dislikes: newDislikes });
+        await api.put(`/topics/comments/${commentId}`, {
+          likes: newLikes,
+          dislikes: newDislikes,
+          action: "dislike",
+      });
       } catch (error) {
         console.error("Error updating likes:", error);
       }
