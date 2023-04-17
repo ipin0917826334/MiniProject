@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Modal from "react-modal";
 import Comment from "./Comment";
 import RouteInfo from "./RouteInfo";

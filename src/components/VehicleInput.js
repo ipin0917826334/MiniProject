@@ -31,21 +31,21 @@ const VehicleInput = ({updateVehicles}) => {
     setVehicleName(e.target.value);
   };
 
-const addVehicle = () => {
-  if (selectedIcon && vehicleName) {
-    const newVehicles = [...vehicles, { icon: selectedIcon, name: vehicleName }];
+  const addVehicle = () => {
+    if (selectedIcon && vehicleName) {
+      const newVehicles = [...vehicles, { icon: selectedIcon, name: vehicleName }];
+      setVehicles(newVehicles);
+      updateVehicles(newVehicles);
+      setSelectedIcon("");
+      setVehicleName("");
+    }
+  };
+
+  const removeVehicle = (index) => {
+    const newVehicles = vehicles.filter((_, i) => i !== index);
     setVehicles(newVehicles);
     updateVehicles(newVehicles);
-    setSelectedIcon("");
-    setVehicleName("");
-  }
-};
-
-const removeVehicle = (index) => {
-  const newVehicles = vehicles.filter((_, i) => i !== index);
-  setVehicles(newVehicles);
-  updateVehicles(newVehicles);
-};
+  };
 
   return (
     <div className="container mx-auto">
@@ -66,15 +66,14 @@ const removeVehicle = (index) => {
           type="text"
           value={vehicleName}
           onChange={handleNameChange}
-          placeholder="Vehicle name"
+          placeholder="สายรถ เบอร์ อื่นๆ"
           className="w-full p-2 border border-gray-300 rounded"
         />
         <button
           onClick={addVehicle}
-          type="button" // Add this line to change the button type
           className="bg-blue-500 text-white py-2 px-4 rounded"
         >
-          Add
+          เพิ่ม
         </button>
       </div>
 
@@ -95,7 +94,7 @@ const removeVehicle = (index) => {
               onClick={() => removeVehicle(index)}
               className="bg-red-500 text-white py-1 px-2 rounded"
             >
-              Remove
+              ลบ
             </button>
           </div>
         ))}
