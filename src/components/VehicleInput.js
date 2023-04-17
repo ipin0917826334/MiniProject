@@ -31,19 +31,21 @@ const VehicleInput = ({updateVehicles}) => {
     setVehicleName(e.target.value);
   };
 
-  const addVehicle = () => {
-    if (selectedIcon && vehicleName) {
-      setVehicles([...vehicles, { icon: selectedIcon, name: vehicleName }]);
-      updateVehicles(vehicles)
-      setSelectedIcon("");
-      setVehicleName("");
-    }
-  };
+const addVehicle = () => {
+  if (selectedIcon && vehicleName) {
+    const newVehicles = [...vehicles, { icon: selectedIcon, name: vehicleName }];
+    setVehicles(newVehicles);
+    updateVehicles(newVehicles);
+    setSelectedIcon("");
+    setVehicleName("");
+  }
+};
 
-  const removeVehicle = (index) => {
-    setVehicles(vehicles.filter((_, i) => i !== index));
-    updateVehicles(vehicles)
-  };
+const removeVehicle = (index) => {
+  const newVehicles = vehicles.filter((_, i) => i !== index);
+  setVehicles(newVehicles);
+  updateVehicles(newVehicles);
+};
 
   return (
     <div className="container mx-auto">
