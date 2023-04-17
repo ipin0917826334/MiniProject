@@ -9,7 +9,7 @@ exports.getTopics = async (req, res) => {
 };
 
 exports.createTopic = async (req, res) => {
-  const { title, description, author, posts ,vehicles, likes, dislikes } = req.body;
+  const { title, description, author, posts ,vehicles, likes, dislikes, start, destination } = req.body;
   const newVehicles = await Vehicle.insertMany(vehicles);
 
   const topic = new Topic({
@@ -19,6 +19,8 @@ exports.createTopic = async (req, res) => {
     posts,
     likes,
     dislikes,
+    start,
+    destination,
     vehicles: newVehicles.map(vehicle => vehicle._id)
   });
   await topic.save();

@@ -1,33 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import Comment from "./Comment";
-import RouteInfo from './RouteInfo';
+import RouteInfo from "./RouteInfo";
 import api from "../services/api";
 Modal.setAppElement("#root");
 
 function Topic({ userData }) {
   const { id } = useParams();
-  // const topic = mockTopics.find((topic) => topic.id.toString() === id);
+  const location = useLocation();
   const [topic, setTopic] = useState(null);
   const [comment, setComment] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [name, setName] = useState("");
+  const [vehicles, setVehicles] = useState([]);
   const [imgProfile, setimgProfile] = useState("");
-  // console.log(userData)
   useEffect(() => {
-    if (userData){
-      setName(userData.name)
-      setimgProfile(userData.imageUrl)
+    if (userData) {
+      setName(userData.name);
+      setimgProfile(userData.imageUrl);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const fetchTopic = async () => {
       try {
         const response = await api.get(`/topics/${id}`);
+        // if (location.state) {
+        //   const { start, destination, vehicles } = location.state;
+        //   setStart(start);
+        //   setEnd(destination);
+        //   setVehicles(vehicles);
+        // }
+        // Set the start, destination, and vehicles state using the fetched data
+        setStart(response.data.start);
+        setEnd(response.data.destination);
+        setVehicles(response.data.vehicles);
         setTopic(response.data);
       } catch (error) {
         console.error("Error fetching topic:", error);
@@ -35,7 +45,8 @@ function Topic({ userData }) {
     };
 
     fetchTopic();
-  }, [id]);
+  }, [id, location.state]);
+
   if (!topic) {
     return <div></div>;
   }
@@ -47,7 +58,7 @@ function Topic({ userData }) {
       likes: 0,
       dislikes: 0,
       author: name,
-      imgProfile: imgProfile
+      imgProfile: imgProfile,
     };
     // topic.posts.push(newPost);
     setComment("");
@@ -63,18 +74,24 @@ function Topic({ userData }) {
   }
   return (
     <div className="topic p-4">
-      <RouteInfo start={start} end={end} />
-      <h1 className="text-2xl font-bold mb-4">{topic.title} By {topic.author}</h1>
+      <RouteInfo start={start} end={end} vehicles={vehicles} />
+      <h1 className="text-2xl font-bold mb-4">
+        {topic.title} By {topic.author}
+      </h1>
       <p className="text-gray-700 mb-4">{topic.description}</p>
-      {userData == null ? (<div></div>) : (<button
-        className="bg-green-500 text-white px-4 py-2 rounded mb-4"
-        onClick={() => setModalIsOpen(true)}
-      >
-        Add Comment
-      </button>)}
+      {userData == null ? (
+        <div></div>
+      ) : (
+        <button
+          className="bg-green-500 text-white px-4 py-2 rounded mb-4"
+          onClick={() => setModalIsOpen(true)}
+        >
+          Add Comment
+        </button>
+      )}
 
       {topic.posts.map((post, index) => (
-        <Comment key={post._id} comment={post} user={userData}/>
+        <Comment key={post._id} comment={post} user={userData} />
       ))}
 
       <Modal

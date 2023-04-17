@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { addNewTopic } from "../mockData";
 import VehicleInput from "./VehicleInput"; // Import the VehicleInput component
 import api from "../services/api";
 
@@ -38,7 +37,9 @@ function NewTopic({ userData }) {
     try {
       const response = await api.post("/topics", newTopic);
       console.log("Response:", response); // Add this line to log the response
-      navigate(`/topic/${response.data._id}`);
+      navigate(`/topic/${response.data._id}`, {
+        state: { start, destination, vehicles },
+      });
     } catch (error) {
       console.error("Error creating new topic:", error);
     }

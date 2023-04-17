@@ -6,6 +6,8 @@ const TopicSchema = new mongoose.Schema({
   likes: Number,
   dislikes: Number,
   author: String,
+  start: String,
+  destination: String,
   vehicles: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vehicle'
